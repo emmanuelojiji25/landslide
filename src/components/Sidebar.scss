@@ -1,0 +1,12 @@
+.Sidebar {
+  background: rgb(239, 239, 239);
+  right: 0;
+  top: 0;
+  &.open {
+    width: 300px;
+  }
+
+  &.closed {
+    width: 0;
+  }
+}

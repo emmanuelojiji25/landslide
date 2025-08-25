@@ -1,0 +1,18 @@
+.Hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+
+
+  input{
+    width: 100%;
+    border: 0;
+    outline: none;
+    text-align: center;
+  }
+}
+
+h1{
+    font-size: 50px;
+}
