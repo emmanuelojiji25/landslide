@@ -1,5 +1,6 @@
 .Editor {
   display: flex;
+  flex: 1;
 }
 
 .editor-left {
@@ -7,5 +8,21 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  //align-items: center;
+}
+
+.carousel {
+  width: 100%;
+  position: relative;
+  z-index: -1;
+  transform: translateY(-0%);
+  height: 100%;
+}
+
+.controls {
+  position: fixed;
+  bottom: 50px;
+  right: 350px;
+  background: grey;
+  padding: 30px;
 }

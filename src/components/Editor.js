@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Editor.scss";
 import AboutUs from "./Sections/AboutUs";
 import Hero from "./Sections/Hero";
@@ -26,12 +26,39 @@ const Editor = () => {
     },
   ];
 
+  const handleScroll = (direction) => {
+    if (direction === "previous") {
+      if (view > 0) {
+        setView(view - 1);
+      }
+    }
+
+    if (direction === "next") {
+      if (view < sections.length) {
+        setView(view + 1);
+      }
+    }
+    console.log(view);
+  };
+
+  useEffect(() => {
+    console.log(sections.length);
+  });
+
   const registry = { hero: Hero, aboutUs: AboutUs };
+
   return (
     <div className="Editor">
       <div className="editor-left">
-        <p onClick={() => setIsSidebarOpen(!isSidebarOpen)}>sidebar</p>
-        <div className="screen-width">
+        <div className="controls">
+          <p onClick={() => handleScroll("previous")}>up</p>
+          <p onClick={() => handleScroll("next")}>down</p>
+          <p onClick={() => setIsSidebarOpen(!isSidebarOpen)}>sidebar</p>
+        </div>
+        <div
+          className="carousel"
+          style={{ transform: `translateY(-${view * 100 - 100}%)` }}
+        >
           {sections.map((section) => {
             const Component = registry[section.type];
 
