@@ -3,28 +3,21 @@ import "./Editor.scss";
 import AboutUs from "./Sections/AboutUs";
 import Hero from "./Sections/Hero";
 import Sidebar from "./Sidebar";
+import { landingPageSections } from "./templates/landingPage";
+import { story } from "./templates/story";
 
 const Editor = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [view, setView] = useState(1);
-  const sections = [
-    {
-      id: 1,
-      type: "hero",
-      title: "The new product in town",
-      subheading: "Hero Subheading",
-      style: {
-        alignItems: "left",
-      },
-    },
 
-    {
-      id: 2,
-      type: "aboutUs",
-      title: "About us",
-      text: "We are a great company",
-    },
-  ];
+  const templates = {
+    landingPage: landingPageSections,
+    story: story,
+  };
+
+  const [chosenTemplate, setChosenTemplate] = useState(templates.landingPage);
+
+  const sections = { hero: Hero, aboutUs: AboutUs };
 
   const handleScroll = (direction) => {
     if (direction === "previous") {
@@ -34,18 +27,12 @@ const Editor = () => {
     }
 
     if (direction === "next") {
-      if (view < sections.length) {
+      if (view < chosenTemplate.length) {
         setView(view + 1);
       }
     }
     console.log(view);
   };
-
-  useEffect(() => {
-    console.log(sections.length);
-  });
-
-  const registry = { hero: Hero, aboutUs: AboutUs };
 
   return (
     <div className="Editor">
@@ -59,14 +46,19 @@ const Editor = () => {
           className="carousel"
           style={{ transform: `translateY(-${view * 100 - 100}%)` }}
         >
-          {sections.map((section) => {
-            const Component = registry[section.type];
+          {chosenTemplate.map((section) => {
+            const Component = sections[section.type];
 
             return <Component {...section} />;
           })}
         </div>
       </div>
-      <Sidebar isSidebarOpen={isSidebarOpen ? "open" : "closed"} />
+      <Sidebar
+        isSidebarOpen={isSidebarOpen ? "open" : "closed"}
+        chosenTemplate={chosenTemplate}
+        setChosenTemplate={setChosenTemplate}
+        view={view}
+      />
     </div>
   );
 };

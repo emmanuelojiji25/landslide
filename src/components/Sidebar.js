@@ -1,13 +1,24 @@
 import "./Sidebar.scss";
 
-const Sidebar = ({ isSidebarOpen }) => {
+const Sidebar = ({
+  isSidebarOpen,
+  chosenTemplate,
+  setChosenTemplate,
+  view,
+}) => {
+  const selected = chosenTemplate[view - 1];
+
+  const Component = selected?.settingsComponent;
   return (
     <aside className={`Sidebar ${isSidebarOpen}`}>
-      <h1>aside</h1>
-      <h3>Text Align</h3>
-      <span onClick={null}>left</span>
-      <span>center</span>
-      <span>right</span>
+      <h2>{selected.name}</h2>
+
+      {Component && (
+        <Component
+          chosenTemplate={chosenTemplate}
+          setChosenTemplate={setChosenTemplate}
+        />
+      )}
     </aside>
   );
 };
