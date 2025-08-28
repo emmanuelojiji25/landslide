@@ -9,7 +9,7 @@ export const landingPageSections = [
     title: "Landing page template",
     subheading: "Hero Subheading",
     style: {
-      alignItems: "left",
+      alignItems: "start",
     },
     component: Hero,
     settingsComponent: HeroSettings,

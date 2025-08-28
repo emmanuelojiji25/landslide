@@ -3,8 +3,10 @@ import "./Hero.scss";
 const Hero = ({ title, subheading, style }) => {
   return (
     <section className="Hero section" style={style}>
-      <h1 type="text">{title}</h1>
-      <p>{subheading}</p>
+      <div className="hero-content">
+        <h1 type="text">{title}</h1>
+        <p>{subheading}</p>
+      </div>
     </section>
   );
 };
@@ -12,7 +14,7 @@ const Hero = ({ title, subheading, style }) => {
 export default Hero;
 
 export const HeroSettings = ({ setChosenTemplate }) => {
-  const handleTextAlign = (direction) => {
+  const handleUpdateStyle = (property, setting) => {
     setChosenTemplate((prev) =>
       prev.map((section) =>
         section.type === "hero"
@@ -20,20 +22,42 @@ export const HeroSettings = ({ setChosenTemplate }) => {
               ...section,
               style: {
                 ...section.style,
-                alignItems: direction,
+                [property]: setting,
               },
             }
           : section
       )
     );
+    console.log("clicked");
+  };
+
+  const settings = {
+    alignItems: [
+      { setting: "start", label: "left" },
+      { setting: "center", label: "center" },
+      { setting: "end", label: "right" },
+    ],
+    textAlign: [
+      { setting: "left", label: "left" },
+      { setting: "center", label: "center" },
+      { setting: "right", label: "right" },
+    ],
   };
   return (
     <>
-      <h2>Text Align:</h2>
-      <p>Left</p>
-      <p onClick={() => handleTextAlign("center")}>Center</p>
-      <p>Right</p>
-      <h2>Background color:</h2>
+      {Object.entries(settings).map(([key, values]) => (
+        <>
+          <h2>{key}:</h2>
+          {values.map((setting) => (
+            <p
+              key={setting.setting}
+              onClick={() => handleUpdateStyle(key, setting.setting)}
+            >
+              {setting.label}
+            </p>
+          ))}
+        </>
+      ))}
     </>
   );
 };
