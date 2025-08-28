@@ -14,6 +14,7 @@ const Hero = ({ title, subheading, style }) => {
 export default Hero;
 
 export const HeroSettings = ({ setChosenTemplate }) => {
+
   const handleUpdateStyle = (property, setting) => {
     setChosenTemplate((prev) =>
       prev.map((section) =>
@@ -30,6 +31,10 @@ export const HeroSettings = ({ setChosenTemplate }) => {
     );
     console.log("clicked");
   };
+
+  const handleUpdateText = () => {
+    
+  }
 
   const settings = {
     alignItems: [

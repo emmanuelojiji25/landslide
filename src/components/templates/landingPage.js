@@ -10,6 +10,7 @@ export const landingPageSections = [
     subheading: "Hero Subheading",
     style: {
       alignItems: "start",
+      textAlign: "center",
     },
     component: Hero,
     settingsComponent: HeroSettings,

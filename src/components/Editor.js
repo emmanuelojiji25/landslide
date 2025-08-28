@@ -21,7 +21,7 @@ const Editor = () => {
 
   const handleScroll = (direction) => {
     if (direction === "previous") {
-      if (view > 0) {
+      if (view > 1) {
         setView(view - 1);
       }
     }
