@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Hero from "../Sections/Hero";
 import { HeroSettings } from "../Sections/Hero";
 

@@ -1,10 +1,11 @@
+import { useEffect, useState } from "react";
 import "./Hero.scss";
 
 const Hero = ({ title, subheading, style }) => {
   return (
     <section className="Hero section" style={style}>
       <div className="hero-content">
-        <h1 type="text">{title}</h1>
+        <h1 type="text">{title || "Your heading"}</h1>
         <p>{subheading}</p>
       </div>
     </section>
@@ -13,34 +14,12 @@ const Hero = ({ title, subheading, style }) => {
 
 export default Hero;
 
-export const HeroSettings = ({ setChosenTemplate }) => {
-
-  const handleUpdateStyle = (property, setting) => {
-    setChosenTemplate((prev) =>
-      prev.map((section) =>
-        section.type === "hero"
-          ? {
-              ...section,
-              style: {
-                ...section.style,
-                [property]: setting,
-              },
-            }
-          : section
-      )
-    );
-    console.log("clicked");
-  };
-
-  const handleUpdateText = () => {
-    
-  }
-
+export const HeroSettings = ({ selected, updateSelected }) => {
   const settings = {
     alignItems: [
-      { setting: "start", label: "left" },
+      { setting: "start", label: "top/left" },
       { setting: "center", label: "center" },
-      { setting: "end", label: "right" },
+      { setting: "end", label: "bottom/right" },
     ],
     textAlign: [
       { setting: "left", label: "left" },
@@ -48,20 +27,34 @@ export const HeroSettings = ({ setChosenTemplate }) => {
       { setting: "right", label: "right" },
     ],
   };
+
   return (
     <>
-      {Object.entries(settings).map(([key, values]) => (
-        <>
-          <h2>{key}:</h2>
-          {values.map((setting) => (
-            <p
-              key={setting.setting}
-              onClick={() => handleUpdateStyle(key, setting.setting)}
+      <h3>Heading</h3>
+      <input
+        type="text"
+        value={selected.title || ""}
+        onChange={(e) => updateSelected({ title: e.target.value })}
+      />
+
+      <h3>Subheading</h3>
+      <textarea
+        value={selected.subheading || ""}
+        onChange={(e) => updateSelected({ subheading: e.target.value })}
+      />
+
+      {Object.entries(settings).map(([key, options]) => (
+        <div key={key}>
+          <h3>{key}</h3>
+          {options.map((opt) => (
+            <button
+              key={opt.setting}
+              onClick={() => updateSelected({ style: { [key]: opt.setting } })}
             >
-              {setting.label}
-            </p>
+              {opt.label}
+            </button>
           ))}
-        </>
+        </div>
       ))}
     </>
   );
